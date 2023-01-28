@@ -1,6 +1,7 @@
 from math import floor
 
-from negatives import words
+from negatives import wordsn
+from positives import wordsp
 
 article = """
 
@@ -152,23 +153,25 @@ more
 """
 
 
-def negative_analysis(article):
-    negative_score = 0
-    for word in words:
+def analyze(article: str, sentiment=True):
+    score = 0
+    article = article.lower()
+    for word in wordsp if sentiment else wordsn:
         if word in article:
-            negative_score += 1
+            score += 1
 
-    total_words = len(article.split())
-    negativity = int(negative_score / total_words * 10000) / 100
-    print(f"Negative score: {negative_score}")
-    print(f"Total words: {total_words}")
-    print(f"Negativity: {negativity}%")
+    word_count = len(article.split())
+    sentiment_score = int(score / word_count * 10000) / 100
+    print(f'{"Positive" if sentiment else "Negative"} score: {sentiment_score}%')
+    print(f"Total words: {word_count}")
+    print(f"Count: {score}")
 
     return {
-        "negativity": negativity,
-        "word_count": total_words,
-        "negative_word_count": negative_score,
+        "occurrence": score,
+        "word_count": word_count,
+        "sentiment_score": sentiment_score,
     }
 
 
-negative_analysis(article)
+analyze(article, True)
+analyze(article, False)

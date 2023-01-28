@@ -1,4 +1,4 @@
-words = [
+wordsn = [
     "2-faced",
     "2-faces",
     "abnormal",

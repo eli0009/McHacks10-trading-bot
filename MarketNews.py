@@ -31,9 +31,14 @@ def get_page_text(url):
         soup = BeautifulSoup(response.content, 'html.parser')
         # Extract the title and text
         title = soup.find('title').get_text()
-        text = soup.get_text("\n")
+        text = soup.get_text("\n", strip= True)
+        new_text = []
+        for section in text.split('\n'):
+            if len(section) > 4:
+                new_text.append(section)
         # Return the title and text as a tuple
-        return (title, text)
+
+        return (title, new_text)
 
 
 if __name__ =='__main__':

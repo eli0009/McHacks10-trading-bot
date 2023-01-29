@@ -1,5 +1,8 @@
 # File paths
-credentialsPath = r"tradingBot/credentials/credentials.json"
+import os
+
+current_directory = os.getcwd()
+credentialsPath = current_directory + r"\credentials\credentials.json"
 
 import json
 with open(credentialsPath, 'r') as jsonfile:

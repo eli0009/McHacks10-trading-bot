@@ -1,7 +1,7 @@
 import requests
 from config import API_KEY, API_SECRET
 import json
-
+from test import Article
 headers = {
     'Apca-Api-Key-Id': API_KEY,
     'Apca-Api-Secret-Key': API_SECRET
@@ -19,9 +19,10 @@ response = requests.get('https://data.alpaca.markets/v1beta1/news', headers=head
 # Check if the request was successful
 if response.status_code == 200:
     # Parse the JSON response
-    print(response.text)
     data = json.loads(response.text)
+    articleObjs = Article.read_json_to_articles(data["news"])
+
     # Print the news articles
-    print(data["summary"])
+    print(articleObjs)
 else:
     print(f'Error: {response.status_code}')

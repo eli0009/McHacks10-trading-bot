@@ -14,8 +14,10 @@ def get_articles(API_KEY = API_KEY, API_SECRET = API_SECRET, date = '2023-01-25'
 
     params = {'symbols': symbol}
 
-    response = requests.get('https://data.alpaca.markets/v1beta1/news', headers=headers, params=params)
-
+    try:
+        response = requests.get('https://data.alpaca.markets/v1beta1/news', headers=headers, params=params)
+    except:
+        raise ValueError("Please enter a different ticker or check the spelling of your ticker symbol.")
     if response.status_code == 200:
         data = json.loads(response.text)
         articleObjs = Article.read_json_to_articles(data["news"])
@@ -34,7 +36,7 @@ def get_page_text(url):
         text = soup.get_text("\n", strip= True)
         new_text = []
         for section in text.split('\n'):
-            if len(section) > 4:
+            if len(section) > 8:
                 new_text.append(section)
         # Return the title and text as a tuple
 

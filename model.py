@@ -27,8 +27,10 @@ def sentiment(input:List[str]):
 
     n += m
 
+
   # print('The confidence levels of the labels are: {}'.format(
   #       classifications.classifications))
+
 
   return recommendationScore
 

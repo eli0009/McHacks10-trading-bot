@@ -7,7 +7,8 @@ def analyse_news(articleObjs:List[Article]):
     for article in articleObjs:
         print(article)
         title, textLines = get_page_text(article.url)
-        recommendationScore = sentiment(textLines.append(title))
+        textLines.append(title)
+        recommendationScore = sentiment(textLines)
         print("Done")
 
     return recommendationScore
@@ -25,6 +26,9 @@ def get_stock_prediction(ticker:str, threshold = 0.66):
     else:
         return hold
 
+
+
 if __name__ == "__main__":
-    decision = get_stock_prediction("AAPL")
+    stock = input("Pleae enter a large cap US Equity Symbol (ex: AAPL): ").upper()
+    decision = get_stock_prediction(stock)
     print(decision)

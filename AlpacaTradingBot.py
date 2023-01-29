@@ -1,21 +1,8 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# # Inputs
-
-# In[8]:
-
-
-# File paths
-credentialsPath = "./credentials/credentials.json"
-
-
 # # Imports
 
 # In[9]:
 
-
-import json
+from config import API_KEY, API_SECRET
 
 # Importing the API
 from alpaca.trading.client import TradingClient
@@ -27,13 +14,6 @@ from alpaca.trading.client import TradingClient
 
 
 # Instantiating the REST client according to the keys
-with open(credentialsPath, 'r') as jsonfile:
-    data = json.load(jsonfile)
-    USERNAME = data["username"]
-    PASSWORD = data["password"]
-    API_KEY = data["api_key"]
-    API_SECRET = data["api_secret"]
-
 #Creating a paper trading client
 trading_client = TradingClient(API_KEY, API_SECRET, paper=True)
 
@@ -52,7 +32,7 @@ account = trading_client.get_account()
 def printAccountProperties():
     for property_name, value in account:
         print(f"\"{property_name}\": {value}")
-        
+
 # Get all open positions and print each of them
 def getAllPositions():
     print("Getting Positions")

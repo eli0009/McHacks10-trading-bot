@@ -2,8 +2,37 @@ import cohere
 from cohere.classify import Example
 from config import COHERE_KEY
 from typing import List
+import yfinance as yf
+import re
+
 co = cohere.Client(COHERE_KEY)
 
+
+# To improve runtime, filter out all strings that do not contain the company name nor the ticker
+def clean_inputs(input: List[str], ticker:str):
+  longName = yf.Ticker(ticker).info['longName']
+  cleaned = []
+  for string in input:
+    if re.search(f"({longName})|({ticker})",string):
+
+
+
+
+def sentiment(input:List[str]) -> float:
+  # Call custom model from cohere
+  classifications = co.classify(
+    model="9dad2d66-6da3-4aff-8812-73a58cce7e99-ft",
+    inputs=input)
+
+  #determine recommendationScore of the inputs
+  k = len(classifications.classifications)
+  for classification in classifications.classifications:
+    if classification.prediction == "positive":
+      recommendationScore += classification.confidence/k
+    elif classification.prediction == "negative":
+      recommendationScore -= classification.confidence/k
+
+  return recommendationScore
 
 def sentiment(input:List[str]):
   n = 0
@@ -27,12 +56,14 @@ def sentiment(input:List[str]):
 
     n += m
 
+  def topic_check(sentences:List[str], ticker):
+    pass
 
   # print('The confidence levels of the labels are: {}'.format(
   #       classifications.classifications))
 
 
-  return recommendationScore
+
 
 
 

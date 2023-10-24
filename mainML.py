@@ -43,7 +43,7 @@ if __name__ == "__main__":
         stock = ""
         attempts = 0
         while not stock and attempts < 2:
-            stock = input("Pleae enter a large cap US Equity Symbol (ex: AAPL): ").upper()
+            stock = input("Please enter a large cap US Equity Symbol (ex: AAPL): ").upper()
             if stock: attempts = 0
             else: attempts +=1
 
